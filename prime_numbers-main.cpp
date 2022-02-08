@@ -1,106 +1,65 @@
-// inclusion of libraries
+//=== inclusions & using directives ============================================
+
+// inclusion of standard headers
 #include <iostream>
 #include <cmath>
 
-// inclusion of files
-#include "prime_numbers-header.hpp"
+
+// inclusion of custom headers
+//lorem_ipsum
+
 
 // using directives
 using std::cout;
 using std::cin;
 
+using std::string;
+
+
+//=== main function ============================================================
+
+
+// function prototyping
+int inputFunction(int, int);
+
+void cls();           // std::cout << "\033[2J\033[1;1H";
+void pause();         // std::cin.ignore(); std::cin.get();
+bool queryRestart();
 
 
 // main function
 int main()
 {
-	bool	restartOperator;	// used to determine whether do-while loop should be repeated manually
+	bool restartOperator;	// used to determine whether do-while loop should be repeated manually
 
 	do
 	{
 		cout	<< "\n";
 
-		// local variable declaration - user input
-		bool	errorMessage = false;	// determines whether error message clean-ups need to be done after user inputs
+		//=== user input ===
+		int lowerBound = 0;
+		int upperBound = 0;
+		int amountColumns = 0;
 
-
-		// user input - lower bound
-		float	lowerBound;		// needs to be float for later calculations
-
-		do
 		{
-			lowerBound = 1;		// setting default value to prevent getting stuck inside loop on unexpected input
+		int inputStage = 0; // used to control std::couts of inputFunction()
 
-			cout	<< " lower bound (int): ";
-			cin		>> lowerBound;
+		inputStage++;
+		lowerBound = inputFunction(inputStage, 0);
 
-			if (lowerBound < 0)
-			{
-				cout	<< " lower bound value must be an integer of at least 0! \n\n";
-				errorMessage = true;
-			}	// error message
+		inputStage++;
+		upperBound = inputFunction(inputStage, lowerBound);
+
+		inputStage++;
+		amountColumns = inputFunction(inputStage, 1);
 		}
-		while (lowerBound < 0);
 
-		if	(errorMessage == true)
-		{
-			errorMessage = false;
-			cls();
-			cout	<< " \n"
-					<< " lower bound (int): " << lowerBound << "\n";
-		}	// clean-up of error messages
+		//=== output of corrected user input ===
+		cls();
 
 
-		// user input - upper bound
-		float	upperBound;		// needs to be float for later calculations
 
-		do
-		{
-			upperBound = 3.40282e+038;	// default value tries to prevent infinite loop repetition on unexpected error
-
-			cout	<< " upper bound (int): ";
-			cin		>> upperBound;
-
-			if	(upperBound <= lowerBound)
-			{
-				cout	<< " upper bound value must be an integer greater than lower bound value! \n\n";
-				errorMessage = true;
-			}	// error message
-		}
-		while (upperBound <= lowerBound);
-
-		if (errorMessage == true)
-		{
-			errorMessage = false;
-			cls();
-			cout	<< " \n"
-					<< " lower bound (int): " << lowerBound << "\n"
-					<< " upper bound (int): " << upperBound << "\n";
-		}	// clean-up of error messages
-
-
-		// user input - amount columns
-		int		amountColumns;
-
-		do
-		{
-			amountColumns = 1;		// setting default value to prevent getting stuck inside loop on unexpected input
-
-			/* recommended values
-			 *
-			 * max recommended value < 1e+006: 7
-			 * max recommended value >= 1e+006: 5
-			 * max recommended value >= 1e+014: 4
-			 * min recommended value (general): 2
-			 */
-
-			cout	<< " amount columns (int): ";
-			cin		>> amountColumns;
-		}
-		while (amountColumns < 1);
-
-
-		// output - header
+		//=== output - header ===
 		int		amountSeparators = 0;
 
 		cout	<< " \n\n prime numbers in given range: \n\n ";
@@ -130,7 +89,7 @@ int main()
 		cout	<< " \n\n\n ";
 
 
-		// local variable declaration - execution
+		//=== local variable declaration - execution ===
 		int		dividend;
 		int		divisor;
 		int		amountDivisions = 0;
@@ -142,7 +101,7 @@ int main()
 		float	amountPrimes = 0;
 
 
-		// primary function - finding prime numbers in given range
+		//=== primary function - finding prime numbers in given range ===
 		for (dividend = lowerBound; dividend <= upperBound; dividend++)
 		{
 			for (divisor = 1; divisor <= sqrt(dividend); divisor++)
@@ -198,7 +157,7 @@ int main()
 		}
 
 
-		// output - footer
+		//=== output - footer ===
 		cout	<< " \n\n ";
 
 		for (int sep = 0; sep < amountSeparators; sep++)
@@ -239,11 +198,57 @@ int main()
 		}
 
 
-		// end block
+		//=== end block ===
 		restartOperator = queryRestart();	// asks user whether current section of program should be looped
 		cls();								// clears screen
 
 	}	while (restartOperator == true);
 
 	return 0;
+}
+
+
+//=== function definitions =====================================================
+
+
+void cls()
+{
+	cout << "\033[2J\033[1;1H";
+
+	/* derived from `system("cls")`
+	 *
+	 * string of special characters that will translate to a clear screen command in the console.
+	 * should work on any OS.
+	 */
+}
+
+void pause()
+{
+	cin.ignore();
+	cin.get();
+
+	/* derived from `system("pause")`
+	 *
+	 * use this block to pause progress in console.
+	 * unpauses on pressing any button input.
+	 * `cin.ignore()` may not always be necessary,
+	 * in that case use `cin.get()` instead of `pause();`
+	 */
+}
+
+bool queryRestart()
+{
+	string restartOperator = "0";
+		// default value tries to prevent infinite loop repetition on unexpected error
+
+	cout << "\n\n restart? (0/1): ";
+	cin  >> restartOperator;
+
+	if		(	restartOperator == "1"
+			||	restartOperator == "y"		||	restartOperator == "Y"
+			||	restartOperator == "t"		||	restartOperator == "T"
+			||	restartOperator == "true"	||	restartOperator == "not false")
+		return true;
+	else
+		return false;
 }
