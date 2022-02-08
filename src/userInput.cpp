@@ -1,15 +1,7 @@
-//=== inclusions & using directives ============================================
-
-// inclusion of standard headers
 #include <iostream>
 #include <string>
 
 
-// inclusion of custom headers
-//lorem_ipsum
-
-
-// using directives
 using std::cout;
 using std::cin;
 
@@ -17,7 +9,6 @@ using std::string;
 using std::stoi;
 
 
-//=== core function ============================================================
 
 
 int inputFunction(int inputStage, int comparable)
@@ -28,19 +19,24 @@ int inputFunction(int inputStage, int comparable)
 	switch(inputStage)
 	{
 		case 1:
+		{
 			outputVariable = "lower bound";
 			break;
-
+		}
 		case 2:
+		{
 			outputVariable = "upper bound";
 			break;
-
+		}
 		case 3:
+		{
 			outputVariable = "amount columns";
 			break;
-
+		}
 		default:
-			outputVariable = "unset";
+		{
+			outputVariable = "undefined";
+		}
 	}
 
 	do
@@ -50,13 +46,12 @@ int inputFunction(int inputStage, int comparable)
 
 		if (input == "help")
 		{
-			return 0;
-		}	// WIP
+			cout << "";  // section WIP
+		}
 
 		if (stoi(input) < comparable)
 		{
-			cout << " "
-				 << "===== ERROR: input value MUST NOT be lower than " << comparable << "! ====="
+			cout << " ===== ERROR: input value MUST NOT be lower than " << comparable << "! ====="
 				 << "\n\n";
 		}
 	}
@@ -66,10 +61,10 @@ int inputFunction(int inputStage, int comparable)
 }
 
 
-//=== previous implementation ==================================================
 
 
-/*
+/*  previous implementation
+
 		// user input - lower bound
 		float	lowerBound;		// needs to be float for later calculations
 

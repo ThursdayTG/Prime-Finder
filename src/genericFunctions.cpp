@@ -22,6 +22,7 @@ void clearScreen()
 	 */
 }
 
+
 void printHeader()
 {
 	clearScreen();
@@ -29,17 +30,14 @@ void printHeader()
 	cout << " \n";
 }
 
-void pause()
-{
-	cin.ignore();
-	cin.get();
-}
 
 bool queryRestart()
 {
-	std::string restartOperator = "0";  // default value tries to prevent infinite loop repetition on unexpected error
+	string restartOperator;
 
-	cout << "\n\n restart? (0/1): ";
+	cout << " \n"
+		 << " \n"
+		 << " \n restart? (0/1): ";
 	cin  >> restartOperator;
 
 	if (    restartOperator == "1"
