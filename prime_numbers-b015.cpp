@@ -1,5 +1,6 @@
 // inclusion of libraries
 	#include <iostream>
+	#include <cmath>
 
 // inclusion of files
 	#include "prime_numbers_header-b001-v1_0_0.hpp"
@@ -86,7 +87,7 @@ int main() {
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
 		/*	local variable declaration - output	*/
-		int		amountColumns		= 5;
+		int		amountColumns		= 2;
 		int		amountSeparators	= 0;
 		/*	local variable declaration - output	*/
 
@@ -127,10 +128,9 @@ int main() {
 
 		/*	local variable declaration - execution	*/
 		int		dividend;
-		int		quotient;
+		int		divisor;
 		int		amountDivisions = 0;
-		int		dividendIncrementor = 2;
-			// divisor = dividend / quotient
+			// quotient = dividend / divisor
 
 		int		memory	= lowerBound;
 		int		newLine	= 1;
@@ -138,84 +138,21 @@ int main() {
 		float	amountNumbers = 0;	// used to count amount of prime numbers
 		/*	local variable declaration - execution	*/
 
-		/*	preparation - sorting out even numbers	*
-		if	(	lowerBound < 2 &&	upperBound		>=	2
-			||	lowerBound > 0 &&	lowerBound % 2	==	0) {
-
-			int		lowerBoundI = lowerBound;
-
-			if	(lowerBound <= 2)
-				int		upperBoundI = 2;
-			else
-				int		upperBoundI = lowerBound;
-
-			for	(	dividend	=	lowerBoundI;
-					dividend	<=	upperBoundI;
-					dividend	+=	dividendIncrementor) {
-
-				for	(	quotient	=	1;
-						quotient	<=	dividend;
-						quotient++) {
-
-					if	(dividend % quotient == 0) {
-						amountDivisions++;
-
-						if	(amountDivisions > 2)
-							break;
-						// breaks quotient loop when a number can't be a prime number
-					}
-				}
-
-				if	(amountDivisions == 2) {
-					// amountDivisions == 2 only happens if a number could be divided by 1 and itself
-
-					cout	<< "++++++[ "
-							<< dividend;
-
-					if	(	dividend	<	1e+006
-						&&	upperBound	>=	1e+006)
-						cout	<< "\t";
-					// renders tables that go beyond 7 digit long prime numbers more cohesively
-
-					cout	<< "\t | "
-							<< dividend - memory
-							<< "\t      ]++";
-
-					memory = dividend;
-
-					if	(newLine < amountColumns)
-						newLine++;
-					else {
-						newLine = 1;
-						cout	<< "++++\n ";
-					}
-
-					amountNumbers++;
-				}
-
-				amountDivisions = 0;
-			}
-		}
-
-		lowerBound = 3;
-		dividendIncrementor = 2;
-		/*	preparation - sorting out even numbers	*/
-
 		/*	primary function - finding prime numbers in given range	*/
 		for	(	dividend	=	lowerBound;
 				dividend	<=	upperBound;
-				dividend	+=	dividendIncrementor) {
+				dividend++) {
 
-			for	(	quotient	=	1;
-					quotient	<=	dividend / 2;
-					quotient++) {
+			for	(	divisor	=	1;
+					divisor	<=	sqrt(dividend);
+					divisor++) {
 
-				if	(dividend % quotient == 0) {
+				if	(dividend % divisor == 0) {
 					amountDivisions++;
 
 					if	(amountDivisions > 1)
 						break;
-					// breaks quotient loop when a number can't be a prime number
+					// breaks divisor loop when a number can't be a prime number
 				}
 			}
 
@@ -312,16 +249,16 @@ int main() {
 /*	using C++ compiler from GCC via console
 
 	compile for debug:
-g++ -Og prime_numbers-b015.cpp -o prime_numbers-newest.debug
+g++ -Og prime_numbers-b016-v1_7_0.cpp -o prime_numbers-newest.debug
 
 	clear and compile as final executable:
-clear && g++ -O0 prime_numbers-b015.cpp -o prime_numbers-newest.release
+clear && g++ -O0 prime_numbers-b016-v1_7_0.cpp -o prime_numbers-newest.release
 
 	clear console, compile debug executable, compile release executable, and run program:
-g++ -Og prime_numbers-b015.cpp -o prime_numbers.debug && g++ -O3 prime_numbers-b015.cpp -o prime_numbers-newest.release && clear && ./prime_numbers-newest.release
+g++ -Og prime_numbers-b016-v1_7_0.cpp -o prime_numbers.debug && g++ -O3 prime_numbers-b016-v1_7_0.cpp -o prime_numbers-newest.release && clear && ./prime_numbers-newest.release
 
-   g++ -Og prime_numbers-b015.cpp -o prime_numbers-newest.debug
-&& g++ -O3 prime_numbers-b015.cpp -o prime_numbers-newest.release
+   g++ -Og prime_numbers-b016-v1_7_0.cpp -o prime_numbers-newest.debug
+&& g++ -O3 prime_numbers-b016-v1_7_0.cpp -o prime_numbers-newest.release
 && clear
 && prime_numbers-newest.release
 */
