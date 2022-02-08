@@ -17,7 +17,7 @@ using std::string;
 using std::stoi;
 
 
-//==============================================================================
+//=== core function ============================================================
 
 
 int inputFunction(int inputStage, int comparable)
@@ -51,14 +51,16 @@ int inputFunction(int inputStage, int comparable)
 		if (input == "help")
 		{
 			return 0;
-		}
+		}	// WIP
 
-		if (stoi(input) <= comparable)
+		if (stoi(input) < comparable)
 		{
-			cout << " error: input value MUST NOT be lower than " << comparable << "!";
+			cout << " "
+				 << "===== ERROR: input value MUST NOT be lower than " << comparable << "! ====="
+				 << "\n\n";
 		}
 	}
-	while (stoi(input) <= comparable);
+	while (stoi(input) < comparable);
 
 	return stoi(input);
 }

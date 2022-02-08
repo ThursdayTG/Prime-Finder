@@ -34,7 +34,8 @@ int main()
 
 	do
 	{
-		cout	<< "\n";
+		cls();
+		cout << "\n";
 
 		//=== user input ===
 		int lowerBound = 0;
@@ -45,18 +46,22 @@ int main()
 		int inputStage = 0; // used to control std::couts of inputFunction()
 
 		inputStage++;
-		lowerBound = inputFunction(inputStage, 0);
+		lowerBound    = inputFunction(inputStage, 0);
 
 		inputStage++;
-		upperBound = inputFunction(inputStage, lowerBound);
+		upperBound    = inputFunction(inputStage, lowerBound+1);
 
 		inputStage++;
 		amountColumns = inputFunction(inputStage, 1);
 		}
 
+
 		//=== output of corrected user input ===
 		cls();
-
+		cout << "\n "
+			 << "lower bound: "    << lowerBound    << "\n "
+			 << "upper bound: "    << upperBound    << "\n "
+			 << "amount columns: " << amountColumns << "\n ";
 
 
 		//=== output - header ===
