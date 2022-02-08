@@ -16,6 +16,7 @@ int main() {
 		// used in queryRestart(); function to determine whether do-while loop(s) should be repeated manually
 	/**/
 
+	int mem2;
 
 	do {
 
@@ -139,6 +140,66 @@ int main() {
 		memory = lowerBound;
 			// makes first output of difference the difference to lowerBound; otherwise would be difference to 0
 
+		if	(	lowerBound	<=	2
+			&&	upperBound	>=	2) {
+
+		int		lowerBoundI = lowerBound;
+		int		upperBoundI = 2;
+
+		for	(	dividend	=	lowerBoundI;
+				dividend	<=	upperBoundI;
+				dividend	+=	dividendIncrement) {
+
+			for	(	quotient	=	1;
+					quotient	<=	dividend;
+					quotient++) {
+
+				if	(dividend % quotient == 0) {
+					amountDivisions++;
+
+					if	(amountDivisions > 2)
+						break;
+					// breaks quotient loop when a number can't be a prime number
+				}
+			}
+
+			if	(amountDivisions == 2) {
+				// amountDivisions == 2 only happens if a number could be divided by 1 and itself
+
+				cout	<< "++++++[ "
+						<< dividend;
+
+				if	(	dividend	<	1e+006
+					&&	upperBound	>=	1e+006)
+					cout	<< "\t";
+				// renders tables that go beyond 7 digit long prime numbers more cohesively
+				// because 7 digit long prime numbers cause further indentation
+
+				cout	<< "\t | "
+						<< dividend - memory
+						<< "\t      ]++";
+
+				memory = dividend;
+
+				if	(newLine < amountColumns)
+					newLine++;
+				else {
+					newLine = 1;
+					cout	<< "++++\n ";
+				}
+
+				amountNumbers++;
+			}
+
+			amountDivisions = 0;
+		}
+
+		}
+
+		mem2 = lowerBound;
+		lowerBound			= 3;
+		dividendIncrement	= 2;
+
 		for	(	dividend	=	lowerBound;
 				dividend	<=	upperBound;
 				dividend	+=	dividendIncrement) {
@@ -179,11 +240,6 @@ int main() {
 				else {
 					newLine = 1;
 					cout	<< "++++\n ";
-
-					if	(dividend > 2)
-						dividendIncrement = 2;
-					// significantly accelerates larger scale calculations
-					// instruction put in this else block to execute this as few times as possible
 				}
 
 				amountNumbers++;
@@ -195,6 +251,8 @@ int main() {
 		if	(	newLine <=	amountColumns
 			&&	newLine >	1		)
 			cout	<< "++";
+
+		lowerBound -= mem2;
 		/*	primary execution block	*/
 
 		/*	output - footer	*/
@@ -256,16 +314,16 @@ int main() {
 /*	using C++ compiler from GCC via console
 
 	compile for debug:
-g++ -Og prime_numbers-b013-v1_6_0.cpp -o prime_numbers-newest.debug
+g++ -Og prime_numbers-b014.cpp -o prime_numbers-newest.debug
 
 	clear and compile as final executable:
-clear && g++ -O0 prime_numbers-b013-v1_6_0.cpp -o prime_numbers-newest.release
+clear && g++ -O0 prime_numbers-b014.cpp -o prime_numbers-newest.release
 
 	clear console, compile debug executable, compile release executable, and run program:
-g++ -Og prime_numbers-b013-v1_6_0.cpp -o prime_numbers.debug && g++ -O3 prime_numbers-b013-v1_6_0.cpp -o prime_numbers-newest.release && clear && ./prime_numbers-newest.release
+g++ -Og prime_numbers-b014.cpp -o prime_numbers.debug && g++ -O3 prime_numbers-b014.cpp -o prime_numbers-newest.release && clear && ./prime_numbers-newest.release
 
-   g++ -Og prime_numbers-b013-v1_6_0.cpp -o prime_numbers-newest.debug
-&& g++ -O3 prime_numbers-b013-v1_6_0.cpp -o prime_numbers-newest.release
+   g++ -Og prime_numbers-b014.cpp -o prime_numbers-newest.debug
+&& g++ -O3 prime_numbers-b014.cpp -o prime_numbers-newest.release
 && clear
 && prime_numbers-newest.release
 */
