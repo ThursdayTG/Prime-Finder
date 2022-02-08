@@ -18,8 +18,7 @@ int inputFunction(int, int);
 
 int main()
 {
-	bool restartOperator = true;
-
+	bool   restartOperator =  true;
 	while (restartOperator == true)
 	{
 		restartOperator = false;
@@ -33,25 +32,25 @@ int main()
 		int amountColumns = 0;
 
 		{
-		int inputStage = 0; // used to control std::couts of `inputFunction()`
+			int inputStage = 0; // used to control std::couts of `inputFunction()`
 
-		inputStage++;
-		lowerBound    = inputFunction(inputStage, 0);
+			inputStage++;
+			lowerBound    = inputFunction(inputStage, 0);
 
-		inputStage++;
-		upperBound    = inputFunction(inputStage, lowerBound+1);
+			inputStage++;
+			upperBound    = inputFunction(inputStage, lowerBound+1);
 
-		inputStage++;
-		amountColumns = inputFunction(inputStage, 1);
+			inputStage++;
+			amountColumns = inputFunction(inputStage, 1);
 		}
 
 
 		//=== output of corrected user input
 		clearScreen();
-		cout << "\n "
-			 << "lower bound: "    << lowerBound    << "\n "
-			 << "upper bound: "    << upperBound    << "\n "
-			 << "amount columns: " << amountColumns << "\n ";
+		cout << " \n"
+			 << " lower bound: "    << lowerBound    << "\n"
+			 << " upper bound: "    << upperBound    << "\n"
+			 << " amount columns: " << amountColumns << "\n";
 
 
 		//=== output - header ===
@@ -61,6 +60,7 @@ int main()
 			 << " \n prime numbers in given range: \n"
 			 << " \n";
 
+		cout << " ";
 		for (int col = 0; col < amountColumns; col++)
 		{
 			cout << "++++++[ number  ";
@@ -85,7 +85,8 @@ int main()
 		}
 		cout << " \n"
 			 << " \n"
-			 << " \n";
+			 << " \n"
+			 << " ";
 
 
 		//=== primary function - finding prime numbers in given range
