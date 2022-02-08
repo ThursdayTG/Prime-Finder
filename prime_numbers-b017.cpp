@@ -32,7 +32,10 @@ int main() {
 
 		float	lowerBound;
 		float	upperBound;
-			// these variables need to be floats for later calculations
+			// need to be floats for later calculations
+
+		int		amountColumns;
+			// used later in output
 		/*	local variable declaration - input	*/
 
 		/*	user input - lower bound	*/
@@ -84,34 +87,47 @@ int main() {
 		}
 		/*	user input - upper bound	*/
 
+		/*	user input - amount columns	*/
+		do	{
+
+			amountColumns = 1;
+				// setting default value to prevent getting stuck inside loop on unexpected input
+
+			// min recommended value: 2
+			// max recommended value < 1e+006: 7
+			// max recommended value >= 1e+006: 5
+			// max recommended value >= 1e+014: 4
+
+			cout	<< " amount columns (int): ";
+			cin		>> amountColumns;
+
+		}	while (amountColumns < 1);
+		/*	user input - amount columns	*/
+
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
 		/*	local variable declaration - output	*/
-		int		amountColumns		= 2;
 		int		amountSeparators	= 0;
 		/*	local variable declaration - output	*/
 
 		/*	output - header	*/
 		cout	<< " \n\n prime numbers in given range: \n\n ";
 
-		if	(upperBound < 1e+006) {
-			for	(	int col	= 0;
-					col		< amountColumns;
-					col++) {
-				cout << "++++++[ number  | difference ]++";
-			}
+		for	(	int col	= 0;
+				col		< amountColumns;
+				col++) {
+			cout	<< "++++++[ number  ";
 
+			if	(upperBound	>=	1e+006)
+				cout	<< "\t ";
+
+			cout	<< "| difference ]++";
+		}
+
+		if	(upperBound	<	1e+006)
 			amountSeparators = (amountColumns * 32) + 4;
-		}
-		else {
-			for	(	int col	= 0;
-					col		< amountColumns;
-					col++) {
-				cout << "++++++[ number  \t | difference ]++";
-			}
-
+		else
 			amountSeparators = (amountColumns * 40) + 4;
-		}
 
 		cout	<< "++++ \n ";
 
@@ -160,6 +176,7 @@ int main() {
 				// amountDivisions == 1 only happens if a number could be divided by 1 and itself
 
 				cout	<< "++++++[ "
+						<< "12345678901234"
 						<< dividend;
 
 				if	(	dividend	<	1e+006
@@ -204,19 +221,15 @@ int main() {
 
 		cout	<< " \n ";
 
-		if	(upperBound < 1e+006) {
-			for	(	int col	= 0;
-					col		< amountColumns;
-					col++) {
-				cout << "++++++[ number  | difference ]++";
-			}
-		}
-		else {
-			for	(	int col	= 0;
-					col		< amountColumns;
-					col++) {
-				cout << "++++++[ number  \t | difference ]++";
-			}
+		for	(	int col	= 0;
+				col		< amountColumns;
+				col++) {
+			cout	<< "++++++[ number  ";
+
+			if	(upperBound	>=	1e+006)
+				cout	<< "\t ";
+
+			cout	<< "| difference ]++";
 		}
 
 		cout	<< "++++"
@@ -249,16 +262,16 @@ int main() {
 /*	using C++ compiler from GCC via console
 
 	compile for debug:
-g++ -Og prime_numbers-b016-v1_7_0.cpp -o prime_numbers-newest.debug
+g++ -Og prime_numbers-b017.cpp -o prime_numbers-newest.debug
 
 	clear and compile as final executable:
-clear && g++ -O0 prime_numbers-b016-v1_7_0.cpp -o prime_numbers-newest.release
+clear && g++ -O0 prime_numbers-b017.cpp -o prime_numbers-newest.release
 
 	clear console, compile debug executable, compile release executable, and run program:
-g++ -Og prime_numbers-b016-v1_7_0.cpp -o prime_numbers.debug && g++ -O3 prime_numbers-b016-v1_7_0.cpp -o prime_numbers-newest.release && clear && ./prime_numbers-newest.release
+g++ -Og prime_numbers-b017.cpp -o prime_numbers.debug && g++ -O3 prime_numbers-b017.cpp -o prime_numbers-newest.release && clear && ./prime_numbers-newest.release
 
-   g++ -Og prime_numbers-b016-v1_7_0.cpp -o prime_numbers-newest.debug
-&& g++ -O3 prime_numbers-b016-v1_7_0.cpp -o prime_numbers-newest.release
+   g++ -Og prime_numbers-b017.cpp -o prime_numbers-newest.debug
+&& g++ -O3 prime_numbers-b017.cpp -o prime_numbers-newest.release
 && clear
 && prime_numbers-newest.release
 */
