@@ -1,6 +1,5 @@
 // inclusion of libraries
 	#include <iostream>
-	#include <chrono>
 
 // inclusion of files
 	#include "prime_numbers_header-b001-v1_0_0.hpp"
@@ -16,7 +15,6 @@ int main() {
 		// used in queryRestart(); function to determine whether do-while loop(s) should be repeated manually
 	/**/
 
-	int mem2;
 
 	do {
 
@@ -33,7 +31,6 @@ int main() {
 
 		float	lowerBound;
 		float	upperBound;
-		float	amountNumbers = 0;	// used to count amount of prime numbers
 			// these variables need to be floats for later calculations
 		/*	local variable declaration - input	*/
 
@@ -86,22 +83,12 @@ int main() {
 		}
 		/*	user input - upper bound	*/
 
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
-
-		/*	local variable declaration - execution & output	*/
-		int		dividend;
-		int		quotient;
-		int		amountDivisions = 0;
-			// divisor = dividend / quotient
-
+		/*	local variable declaration - output	*/
 		int		amountColumns		= 5;
 		int		amountSeparators	= 0;
-
-		int		memory	= 0;
-		int		newLine	= 1;
-
-		int		dividendIncrement = 1;
-		/*	local variable declaration - execution & output	*/
+		/*	local variable declaration - output	*/
 
 		/*	output - header	*/
 		cout	<< " \n\n prime numbers in given range: \n\n ";
@@ -113,8 +100,7 @@ int main() {
 				cout << "++++++[ number  | difference ]++";
 			}
 
-			cout	<< "++++ \n ";
-			amountSeparators = amountColumns * 32 + 4;
+			amountSeparators = (amountColumns * 32) + 4;
 		}
 		else {
 			for	(	int col	= 0;
@@ -123,9 +109,10 @@ int main() {
 				cout << "++++++[ number  \t | difference ]++";
 			}
 
-			cout	<< "++++ \n ";
-			amountSeparators = amountColumns * 40 + 4;
+			amountSeparators = (amountColumns * 40) + 4;
 		}
+
+		cout	<< "++++ \n ";
 
 		for	(	int sep	= 0;
 				sep		< amountSeparators;
@@ -136,89 +123,104 @@ int main() {
 		cout	<< " \n\n\n ";
 		/*	output - header	*/
 
-		/*	primary execution block	*/
-		memory = lowerBound;
-			// makes first output of difference the difference to lowerBound; otherwise would be difference to 0
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
-		if	(	lowerBound	<=	2
-			&&	upperBound	>=	2) {
+		/*	local variable declaration - execution	*/
+		int		dividend;
+		int		quotient;
+		int		amountDivisions = 0;
+		int		dividendIncrementor = 2;
+			// divisor = dividend / quotient
 
-		int		lowerBoundI = lowerBound;
-		int		upperBoundI = 2;
+		int		memory	= lowerBound;
+		int		newLine	= 1;
 
-		for	(	dividend	=	lowerBoundI;
-				dividend	<=	upperBoundI;
-				dividend	+=	dividendIncrement) {
+		float	amountNumbers = 0;	// used to count amount of prime numbers
+		/*	local variable declaration - execution	*/
 
-			for	(	quotient	=	1;
-					quotient	<=	dividend;
-					quotient++) {
+		/*	preparation - sorting out even numbers	*
+		if	(	lowerBound < 2 &&	upperBound		>=	2
+			||	lowerBound > 0 &&	lowerBound % 2	==	0) {
 
-				if	(dividend % quotient == 0) {
-					amountDivisions++;
+			int		lowerBoundI = lowerBound;
 
-					if	(amountDivisions > 2)
-						break;
-					// breaks quotient loop when a number can't be a prime number
-				}
-			}
+			if	(lowerBound <= 2)
+				int		upperBoundI = 2;
+			else
+				int		upperBoundI = lowerBound;
 
-			if	(amountDivisions == 2) {
-				// amountDivisions == 2 only happens if a number could be divided by 1 and itself
+			for	(	dividend	=	lowerBoundI;
+					dividend	<=	upperBoundI;
+					dividend	+=	dividendIncrementor) {
 
-				cout	<< "++++++[ "
-						<< dividend;
+				for	(	quotient	=	1;
+						quotient	<=	dividend;
+						quotient++) {
 
-				if	(	dividend	<	1e+006
-					&&	upperBound	>=	1e+006)
-					cout	<< "\t";
-				// renders tables that go beyond 7 digit long prime numbers more cohesively
-				// because 7 digit long prime numbers cause further indentation
+					if	(dividend % quotient == 0) {
+						amountDivisions++;
 
-				cout	<< "\t | "
-						<< dividend - memory
-						<< "\t      ]++";
-
-				memory = dividend;
-
-				if	(newLine < amountColumns)
-					newLine++;
-				else {
-					newLine = 1;
-					cout	<< "++++\n ";
+						if	(amountDivisions > 2)
+							break;
+						// breaks quotient loop when a number can't be a prime number
+					}
 				}
 
-				amountNumbers++;
+				if	(amountDivisions == 2) {
+					// amountDivisions == 2 only happens if a number could be divided by 1 and itself
+
+					cout	<< "++++++[ "
+							<< dividend;
+
+					if	(	dividend	<	1e+006
+						&&	upperBound	>=	1e+006)
+						cout	<< "\t";
+					// renders tables that go beyond 7 digit long prime numbers more cohesively
+
+					cout	<< "\t | "
+							<< dividend - memory
+							<< "\t      ]++";
+
+					memory = dividend;
+
+					if	(newLine < amountColumns)
+						newLine++;
+					else {
+						newLine = 1;
+						cout	<< "++++\n ";
+					}
+
+					amountNumbers++;
+				}
+
+				amountDivisions = 0;
 			}
-
-			amountDivisions = 0;
 		}
 
-		}
+		lowerBound = 3;
+		dividendIncrementor = 2;
+		/*	preparation - sorting out even numbers	*/
 
-		mem2 = lowerBound;
-		lowerBound			= 3;
-		dividendIncrement	= 2;
-
+		/*	primary function - finding prime numbers in given range	*/
 		for	(	dividend	=	lowerBound;
 				dividend	<=	upperBound;
-				dividend	+=	dividendIncrement) {
+				dividend	+=	dividendIncrementor) {
 
 			for	(	quotient	=	1;
-					quotient	<=	dividend;
+					quotient	<=	dividend / 2;
 					quotient++) {
 
 				if	(dividend % quotient == 0) {
 					amountDivisions++;
 
-					if	(amountDivisions > 2)
+					if	(amountDivisions > 1)
 						break;
 					// breaks quotient loop when a number can't be a prime number
 				}
 			}
 
-			if	(amountDivisions == 2) {
-				// amountDivisions == 2 only happens if a number could be divided by 1 and itself
+			if	(amountDivisions == 1) {
+				// amountDivisions == 1 only happens if a number could be divided by 1 and itself
 
 				cout	<< "++++++[ "
 						<< dividend;
@@ -226,8 +228,7 @@ int main() {
 				if	(	dividend	<	1e+006
 					&&	upperBound	>=	1e+006)
 					cout	<< "\t";
-				// renders tables that go beyond 7 digit long prime numbers more cohesively
-				// because 7 digit long prime numbers cause further indentation
+				// makes tables that end at 7 or more digits more coherent
 
 				cout	<< "\t | "
 						<< dividend - memory
@@ -239,7 +240,7 @@ int main() {
 					newLine++;
 				else {
 					newLine = 1;
-					cout	<< "++++\n ";
+					cout	<< "++++ \n ";
 				}
 
 				amountNumbers++;
@@ -249,11 +250,11 @@ int main() {
 		}
 
 		if	(	newLine <=	amountColumns
-			&&	newLine >	1		)
+			&&	newLine >	1)
 			cout	<< "++";
+		/*	primary function - finding prime numbers in given range	*/
 
-		lowerBound -= mem2;
-		/*	primary execution block	*/
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
 		/*	output - footer	*/
 		cout	<< " \n\n ";
@@ -298,32 +299,29 @@ int main() {
 				<< " \n ";
 		/*	output - footer	*/
 
-
-
-		/*	end block	*/
+		/*	end	*/
 		restartOperator = queryRestart();	// asks user whether current section of program should be looped
 		cls();								// clears screen
-		/*	end block	*/
+		/*	end	*/
 
 	}	while (restartOperator == true);
 
 	return 0;
-
 }
 
 /*	using C++ compiler from GCC via console
 
 	compile for debug:
-g++ -Og prime_numbers-b014.cpp -o prime_numbers-newest.debug
+g++ -Og prime_numbers-b015.cpp -o prime_numbers-newest.debug
 
 	clear and compile as final executable:
-clear && g++ -O0 prime_numbers-b014.cpp -o prime_numbers-newest.release
+clear && g++ -O0 prime_numbers-b015.cpp -o prime_numbers-newest.release
 
 	clear console, compile debug executable, compile release executable, and run program:
-g++ -Og prime_numbers-b014.cpp -o prime_numbers.debug && g++ -O3 prime_numbers-b014.cpp -o prime_numbers-newest.release && clear && ./prime_numbers-newest.release
+g++ -Og prime_numbers-b015.cpp -o prime_numbers.debug && g++ -O3 prime_numbers-b015.cpp -o prime_numbers-newest.release && clear && ./prime_numbers-newest.release
 
-   g++ -Og prime_numbers-b014.cpp -o prime_numbers-newest.debug
-&& g++ -O3 prime_numbers-b014.cpp -o prime_numbers-newest.release
+   g++ -Og prime_numbers-b015.cpp -o prime_numbers-newest.debug
+&& g++ -O3 prime_numbers-b015.cpp -o prime_numbers-newest.release
 && clear
 && prime_numbers-newest.release
 */
