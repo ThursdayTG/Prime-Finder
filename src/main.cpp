@@ -3,6 +3,7 @@
 #include <cmath>
 
 #include "../headers/genericFunctions.hpp"
+#include "../headers/output.hpp"
 
 
 using std::cout;
@@ -45,6 +46,15 @@ int main()
 		}
 
 
+		//=== separators - no idea where to put this rn, lol
+		int amountSeparators = amountColumns * 32;
+		if (upperBound >= 1e+006)
+		{
+			amountSeparators *= 1.25;
+		}
+		amountSeparators += 4;
+
+
 		//=== output of corrected user input
 		clearScreen();
 		cout << " \n"
@@ -54,39 +64,7 @@ int main()
 
 
 		//=== output - header ===
-		int amountSeparators = 0;
-
-		cout << " \n"
-			 << " \n prime numbers in given range: \n"
-			 << " \n";
-
-		cout << " ";
-		for (int col = 0; col < amountColumns; col++)
-		{
-			cout << "++++++[ number  ";
-			if (upperBound >= 1e+006)
-			{
-				cout << "\t ";
-			}
-			cout << "| difference ]++";
-		}
-
-		amountSeparators = amountColumns * 32;
-		if (upperBound >= 1e+006)
-		{
-			amountSeparators *= 1.25;
-		}
-		amountSeparators += 4;
-
-		cout << "++++ \n ";
-		for (int sep = 0; sep < amountSeparators; sep++)
-		{
-			cout << "-";
-		}
-		cout << " \n"
-			 << " \n"
-			 << " \n"
-			 << " ";
+		header(amountColumns, upperBound);
 
 
 		//=== primary function - finding prime numbers in given range
@@ -156,21 +134,7 @@ int main()
 		//=== output - footer
 		cout << " \n\n ";
 
-		for (int sep = 0; sep < amountSeparators; sep++)
-		{
-			cout << "-";
-		}
-		cout << " \n ";
-
-		for (int col = 0; col < amountColumns; col++)
-		{
-			cout << "++++++[ number  ";
-			if (upperBound >= 1e+006)
-			{
-				cout << "\t ";
-			}
-			cout << "| difference ]++";
-		}
+		//tableLabelling(amountColumns, upperBound);
 
 		cout
 		<< "++++"
@@ -189,7 +153,7 @@ int main()
 		<< amountPrimes / (upperBound - lowerBound + 1) * 100 << "%"
 		<< " \n\n ";
 
-		for (int sep = 0; sep < amountSeparators / 2; sep++)
+		for(int sep = 0; sep < amountSeparators / 2; sep++)
 		{
 			cout << "- ";
 		}
