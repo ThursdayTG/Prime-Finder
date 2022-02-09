@@ -64,7 +64,7 @@ int main()
 
 
 		//=== output - header ===
-		header(amountColumns, upperBound);
+		printHeader(amountColumns, amountSeparators, upperBound);
 
 
 		//=== primary function - finding prime numbers in given range
@@ -132,6 +132,7 @@ int main()
 
 
 		//=== output - footer
+		printFooter(amountColumns, amountSeparators, upperBound);
 		cout << " \n\n ";
 
 		//tableLabelling(amountColumns, upperBound);

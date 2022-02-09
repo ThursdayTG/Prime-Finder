@@ -24,7 +24,7 @@ void printLabel(int amountColumns, int upperBound)
 }
 
 
-void printSeparators(int amountSeparators, int amountColumns, string separator)
+void printSeparators(int amountSeparators, string separator)
 {
 	for (int i = 0; i < amountSeparators; i++)
 	{
@@ -33,13 +33,11 @@ void printSeparators(int amountSeparators, int amountColumns, string separator)
 	cout << " \n ";
 }
 
-// ─
+
 
 
 void printHeader(int amountColumns, int amountSeparators, int upperBound)
 {
-
-
 	cout
 	<< " \n"
 	<< " \n prime numbers in given range: \n"
@@ -49,7 +47,7 @@ void printHeader(int amountColumns, int amountSeparators, int upperBound)
 	printLabel(amountColumns, upperBound);
 	cout << "++++ \n ";
 
-	printSeparators(amountSeparators, amountColumns, "─");
+	printSeparators(amountSeparators, "─");
 
 	cout
 	<< " \n"
@@ -66,9 +64,9 @@ void printFooter(int amountColumns, int amountSeparators, int upperBound)
 	<< " \n"
 	<< " ";
 
-	printSeparators(amountSeparators, amountColumns, "─");
+	printSeparators(amountSeparators, "─");
 
 	printLabel(amountColumns, upperBound);
 
-	printSeparators(amountSeparators/2, amountColumns, "─ ");
+	printSeparators(amountSeparators / 2, "─ ");
 }
