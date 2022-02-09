@@ -45,8 +45,6 @@ int main()
 			amountColumns = inputFunction(inputStage, 1);
 		}
 
-
-		//=== separators - no idea where to put this rn, lol
 		int amountSeparators = amountColumns * 32;
 		if (upperBound >= 1e+006)
 		{
@@ -57,10 +55,12 @@ int main()
 
 		//=== output of corrected user input
 		clearScreen();
-		cout << " \n"
-			 << " lower bound: "    << lowerBound    << "\n"
-			 << " upper bound: "    << upperBound    << "\n"
-			 << " amount columns: " << amountColumns << "\n";
+		cout
+		<< " \n"
+		<< " lower bound: "    << lowerBound    << "\n"
+		<< " upper bound: "    << upperBound    << "\n"
+		<< " amount columns: " << amountColumns << "\n"
+		<< " \n";
 
 
 		//=== output - header ===
@@ -135,12 +135,7 @@ int main()
 		printFooter(amountColumns, amountSeparators, upperBound);
 		cout << " \n\n ";
 
-		//tableLabelling(amountColumns, upperBound);
-
 		cout
-		<< "++++"
-		<< " \n\n "
-
 		<< " \n amount of numbers checked:"
 		<< " \t\t\t\t "
 		<< upperBound - lowerBound + 1
@@ -152,12 +147,9 @@ int main()
 		<< " \n percentage of prime numbers in given range:"
 		<< " \t\t "
 		<< amountPrimes / (upperBound - lowerBound + 1) * 100 << "%"
-		<< " \n\n ";
+		<< " \n\n\n ";
 
-		for(int sep = 0; sep < amountSeparators / 2; sep++)
-		{
-			cout << "- ";
-		}
+		printSeparators(amountSeparators / 2, " ─");
 
 
 		//=== end block

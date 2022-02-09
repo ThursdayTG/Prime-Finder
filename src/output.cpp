@@ -12,6 +12,8 @@ using std::string;
 
 void printLabel(int amountColumns, int upperBound)
 {
+	cout << " \n ";
+
 	for (int col = 0; col < amountColumns; col++)
 	{
 		cout << "++++++[ number  ";
@@ -21,6 +23,8 @@ void printLabel(int amountColumns, int upperBound)
 		}
 		cout << "| difference ]++";
 	}
+
+	cout << "++++ \n ";
 }
 
 
@@ -30,7 +34,6 @@ void printSeparators(int amountSeparators, string separator)
 	{
 		cout << separator;
 	}
-	cout << " \n ";
 }
 
 
@@ -41,16 +44,13 @@ void printHeader(int amountColumns, int amountSeparators, int upperBound)
 	cout
 	<< " \n"
 	<< " \n prime numbers in given range: \n"
-	<< " \n"
 	<< " ";
 
 	printLabel(amountColumns, upperBound);
-	cout << "++++ \n ";
 
 	printSeparators(amountSeparators, "─");
 
 	cout
-	<< " \n"
 	<< " \n"
 	<< " \n"
 	<< " ";
@@ -67,6 +67,4 @@ void printFooter(int amountColumns, int amountSeparators, int upperBound)
 	printSeparators(amountSeparators, "─");
 
 	printLabel(amountColumns, upperBound);
-
-	printSeparators(amountSeparators / 2, "─ ");
 }
