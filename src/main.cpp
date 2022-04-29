@@ -1,161 +1,138 @@
 #include <iostream>
-#include <string>
+#include <iomanip>
 #include <cmath>
 
 #include "../headers/genericFunctions.hpp"
+#include "../headers/tableStructure.hpp"
+#include "../headers/userInput.hpp"
 #include "../headers/output.hpp"
 
 
-using std::cout;
-using std::cin;
-
-using std::string;
-
-
-
-
-int inputFunction(int, int);
 
 
 int main()
 {
-	bool   restartOperator =  true;
-	while (restartOperator == true)
-	{
-		restartOperator = false;
-		clearScreen();
-		cout << "\n";
+    using std::cout;
 
 
-		//=== user input
-		int lowerBound = 0;
-		int upperBound = 0;
-		int amountColumns = 0;
+    bool   restartOperator  = true;
+    while (restartOperator == true)
+    {
 
-		{
-			int inputStage = 0; // used to control std::couts of `inputFunction()`
-
-			inputStage++;
-			lowerBound    = inputFunction(inputStage, 0);
-
-			inputStage++;
-			upperBound    = inputFunction(inputStage, lowerBound+1);
-
-			inputStage++;
-			amountColumns = inputFunction(inputStage, 1);
-		}
-
-		int amountSeparators = amountColumns * 32;
-		if (upperBound >= 1e+006)
-		{
-			amountSeparators *= 1.25;
-		}
-		amountSeparators += 4;
+        restartOperator = false;
+        printHeader();
 
 
-		//=== output of corrected user input
-		clearScreen();
-		cout
-		<< " \n"
-		<< " lower bound: "    << lowerBound    << "\n"
-		<< " upper bound: "    << upperBound    << "\n"
-		<< " amount columns: " << amountColumns << "\n"
-		<< " \n";
+        //=== user input
+        tableStructure ts;
+        ts = func(ts);
+
+        ts.amountSeparators = ts.amountColumns * 32;
+        if (ts.upperBound >= 1e+006)
+        {
+            ts.amountSeparators *= 1.25;
+        }
+        ts.amountSeparators += 4;
 
 
-		//=== output - header ===
-		printHeader(amountColumns, amountSeparators, upperBound);
+        //=== output
+        printHeader();
+        cout
+        << " lower bound: "    << ts.lowerBound    << "\n"
+        << " upper bound: "    << ts.upperBound    << "\n"
+        << " amount columns: " << ts.amountColumns << "\n"
+        << " \n\n";
+        printHeader(ts.amountColumns, ts.amountSeparators, ts.upperBound);
 
 
-		//=== primary function - finding prime numbers in given range
-		int		dividend;
-		int		divisor;
-		int		amountDivisions = 0;
-			// quotient = dividend / divisor
+        //=== finding prime numbers in given range
+        int dividend;
+        int divisor;
+        int amountDivisions = 0;
+            // quotient = dividend / divisor
 
-		int		memory	= lowerBound;
-		int		newLine	= 1;
+        int memory  = ts.lowerBound;
+        int newLine = 1;
 
-		float	amountPrimes = 0;
-
-		for (dividend = lowerBound; dividend <= upperBound; dividend++)
-		{
-			for (divisor = 1; divisor <= sqrt(dividend); divisor++)
-			{
-				if (dividend % divisor == 0)
-				{
-					amountDivisions++;
-
-					if (amountDivisions > 1)
-					{
-						break;
-					}
-				}
-			}
-
-			if (amountDivisions == 1)
-			{
-				cout << "++++++[ "
-					 << dividend;
-
-				if (    dividend   <  1e+006
-				     && upperBound >= 1e+006
-				)  {
-					cout << "\t";	// makes tables that end at 7 or more digits more coherent
-				}
-
-				cout << "\t | " << dividend - memory << "\t      ]++";
-
-				memory = dividend;
-
-				if (newLine < amountColumns)
-				{
-					newLine++;
-				}
-				else
-				{
-					newLine = 1;
-					cout << "++++ \n ";
-				}
-
-				amountPrimes++;
-			}
-
-			amountDivisions = 0;
-		}
-
-		if (    newLine <= amountColumns
-		     && newLine >  1
-		)  {
-			cout << "++";
-		}
+        float amountPrimes = 0;
 
 
-		//=== output - footer
-		printFooter(amountColumns, amountSeparators, upperBound);
-		cout << " \n\n ";
+        for (dividend = ts.lowerBound; dividend <= ts.upperBound; dividend++)
+        {
+            for (divisor = 1; divisor <= sqrt(dividend); divisor++)
+            {
+                if (dividend % divisor == 0)
+                {
+                    amountDivisions++;
 
-		cout
-		<< " \n amount of numbers checked:"
-		<< " \t\t\t\t "
-		<< upperBound - lowerBound + 1
+                    if (amountDivisions > 1)
+                    {
+                        break;
+                    }
+                }
+            }
 
-		<< " \n absolute amount of prime numbers in given range:"
-		<< " \t "
-		<< amountPrimes
+            if (amountDivisions == 1)
+            {
+                cout << "++++++[ "
+                     << dividend;
 
-		<< " \n percentage of prime numbers in given range:"
-		<< " \t\t "
-		<< amountPrimes / (upperBound - lowerBound + 1) * 100 << "%"
-		<< " \n\n\n ";
+                if (
+                    dividend   <  1e+006
+                 && ts.upperBound >= 1e+006
+                )  {
+                    cout << "\t";
+                }   // makes tables that end at 7 or more digits more coherent
 
-		printSeparators(amountSeparators / 2, " ─");
+                cout << "\t | " << dividend - memory << "\t      ]++";
+
+                memory = dividend;
+
+                if (newLine < ts.amountColumns)
+                {
+                    newLine++;
+                }
+                else
+                {
+                    newLine = 1;
+                    cout << "++++ \n ";
+                }
+
+                amountPrimes++;
+            }
+
+            amountDivisions = 0;
+        }
+
+        if (
+            newLine <= ts.amountColumns
+         && newLine >  1
+        )  {
+            cout << "++";
+        }
 
 
-		//=== end block
-		restartOperator = queryRestart();
-		clearScreen();
-	}
+        //=== output - footer
+        printFooter(ts.amountColumns, ts.amountSeparators, ts.upperBound);
 
-	return 0;
+        {
+            int setw = 55;
+            cout
+            << " \n"
+            << std::left
+            << std::setw(setw) << " \n amount of numbers checked:"                       << ts.upperBound - ts.lowerBound + 1
+            << std::setw(setw) << " \n absolute amount of prime numbers in given range:" << amountPrimes
+            << std::setw(setw) << " \n percentage of prime numbers in given range:"      << amountPrimes / (ts.upperBound - ts.lowerBound + 1) * 100 << "%"
+            << " \n\n ";
+        }
+
+        printSeparators(ts.amountSeparators, "_");
+
+
+        //=== end
+        restartOperator = queryRestart();
+        clearScreen();
+    }
+
+    return 0;
 }

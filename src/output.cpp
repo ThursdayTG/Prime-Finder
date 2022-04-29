@@ -1,39 +1,48 @@
 #include <iostream>
+#include <iomanip>
+
 #include <string>
+#include <cmath>
 
 #include "../headers/genericFunctions.hpp"
-
-
-using std::cout;
-using std::string;
+#include "../headers/output.hpp"
+#include "../headers/tableStructure.hpp"
 
 
 
 
-void printLabel(int amountColumns, int upperBound)
+void printTableHeader(int amountColumns, int upperBound)
 {
-	cout << " \n ";
+    using std::cout;
 
-	for (int col = 0; col < amountColumns; col++)
-	{
-		cout << "++++++[ number  ";
-		if (upperBound >= 1e+006)
-		{
-			cout << "\t ";
-		}
-		cout << "| difference ]++";
-	}
 
-	cout << "++++ \n ";
+    cout << " \n ";
+
+    int columnWidth = 8;
+
+    for (int i = 5; upperBound >= pow(10, i); i++)
+    {
+        columnWidth++;
+    }
+
+
+    for (int col = 0; col < amountColumns; col++)
+    {
+        //tableFiller();
+        cout << std::setw(columnWidth) << "[ prime ";
+        cout << std::setw(columnWidth) << "| diff  ";
+    }
+
+    cout << "++++ \n ";
 }
 
 
-void printSeparators(int amountSeparators, string separator)
+void printSeparators(int amountSeparators, std::string separator)
 {
-	for (int i = 0; i < amountSeparators; i++)
-	{
-		cout << separator;
-	}
+    for (int i = 0; i < amountSeparators; i++)
+    {
+        std::cout << separator;
+    }
 }
 
 
@@ -41,30 +50,25 @@ void printSeparators(int amountSeparators, string separator)
 
 void printHeader(int amountColumns, int amountSeparators, int upperBound)
 {
-	cout
-	<< " \n"
-	<< " \n prime numbers in given range: \n"
-	<< " ";
+    std::cout
+    << " \n"
+    << " \n prime numbers in given range: \n"
+    << " \n"
+    << " ";
 
-	printLabel(amountColumns, upperBound);
+    printTableHeader(amountColumns, upperBound);
 
-	printSeparators(amountSeparators, "─");
+    printSeparators(amountSeparators, "-");
 
-	cout
-	<< " \n"
-	<< " \n"
-	<< " ";
+    std::cout << "\n ";
 }
 
 
 void printFooter(int amountColumns, int amountSeparators, int upperBound)
 {
-	cout
-	<< " \n"
-	<< " \n"
-	<< " ";
+    std::cout << "\n ";
 
-	printSeparators(amountSeparators, "─");
+    printSeparators(amountSeparators, "-");
 
-	printLabel(amountColumns, upperBound);
+    printTableHeader(amountColumns, upperBound);
 }

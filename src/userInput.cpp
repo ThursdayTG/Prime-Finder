@@ -1,142 +1,81 @@
 #include <iostream>
 #include <string>
 
-
-using std::cout;
-using std::cin;
-
-using std::string;
-using std::stoi;
+#include "../headers/tableStructure.hpp"
 
 
 
 
 int inputFunction(int inputStage, int comparable)
 {
-	string input;
-	string outputVariable;
+    //=== setting outputVariable
+    std::string input;
+    std::string outputVariable;
 
-	switch(inputStage)
-	{
-		case 1:
-		{
-			outputVariable = "lower bound";
-			break;
-		}
-		case 2:
-		{
-			outputVariable = "upper bound";
-			break;
-		}
-		case 3:
-		{
-			outputVariable = "amount columns";
-			break;
-		}
-		default:
-		{
-			outputVariable = "undefined";
-		}
-	}
+    switch(inputStage)
+    {
+        case 1:
+        {
+            outputVariable = "lower bound";
+            break;
+        }
+        case 2:
+        {
+            outputVariable = "upper bound";
+            break;
+        }
+        case 3:
+        {
+            outputVariable = "amount columns";
+            break;
+        }
+        default:
+        {
+            outputVariable = "undefined";
+        }
+    }
 
-	do
-	{
-		cout << " " << outputVariable << ": ";
-		cin  >> input;
 
-		if (input == "help")
-		{
-			cout << "";  // section WIP
-		}
+    //=== user input
+    using std::stoi;
 
-		if (stoi(input) < comparable)
-		{
-			cout << " ===== ERROR: input value MUST NOT be lower than " << comparable << "! ====="
-				 << "\n\n";
-		}
-	}
-	while (stoi(input) < comparable);
+    do
+    {
+        std::cout << " " << outputVariable << ": ";
+        std::cin  >> input;
 
-	return stoi(input);
+        if (input == "help")
+        {
+            std::cout
+            << "";
+            // section WIP
+        }
+
+        if (stoi(input) < comparable)
+        {
+            std::cout
+            << " ===== ERROR: input value MUST NOT be lower than " << comparable << "! ====="
+            << " \n\n";
+        }
+    }
+    while (stoi(input) < comparable);
+
+    return stoi(input);
 }
 
 
+tableStructure func(tableStructure ts)
+{
+    int inputStage = 0;    // used to control std::couts of `inputFunction()`
 
+    inputStage++;
+    ts.lowerBound    = inputFunction(inputStage, 0);
 
-/*  previous implementation
+    inputStage++;
+    ts.upperBound    = inputFunction(inputStage, ts.lowerBound+1);
 
-		// user input - lower bound
-		float	lowerBound;		// needs to be float for later calculations
+    inputStage++;
+    ts.amountColumns = inputFunction(inputStage, 1);
 
-		do
-		{
-			lowerBound = 1;		// setting default value to prevent getting stuck inside loop on unexpected input
-
-			cout	<< " lower bound (int): ";
-			cin		>> lowerBound;
-
-			if (lowerBound < 0)
-			{
-				cout	<< " lower bound value must be an integer of at least 0! \n\n";
-				errorMessage = true;
-			}	// error message
-		}
-		while (lowerBound < 0);
-
-		if	(errorMessage == true)
-		{
-			errorMessage = false;
-			cls();
-			cout	<< " \n"
-					<< " lower bound (int): " << lowerBound << "\n";
-		}	// clean-up of error messages
-
-
-		// user input - upper bound
-		float	upperBound;		// needs to be float for later calculations
-
-		do
-		{
-			upperBound = 3.40282e+038;	// default value tries to prevent infinite loop repetition on unexpected error
-
-			cout	<< " upper bound (int): ";
-			cin		>> upperBound;
-
-			if	(upperBound <= lowerBound)
-			{
-				cout	<< " upper bound value must be an integer greater than lower bound value! \n\n";
-				errorMessage = true;
-			}	// error message
-		}
-		while (upperBound <= lowerBound);
-
-		if (errorMessage == true)
-		{
-			errorMessage = false;
-			cls();
-			cout	<< " \n"
-					<< " lower bound (int): " << lowerBound << "\n"
-					<< " upper bound (int): " << upperBound << "\n";
-		}	// clean-up of error messages
-
-
-		// user input - amount columns
-		int		amountColumns;
-
-		do
-		{
-			amountColumns = 1;		// setting default value to prevent getting stuck inside loop on unexpected input
-
-			 * recommended values
-			 *
-			 * max recommended value < 1e+006: 7
-			 * max recommended value >= 1e+006: 5
-			 * max recommended value >= 1e+014: 4
-			 * min recommended value (general): 2
-			 *
-
-			cout	<< " amount columns (int): ";
-			cin		>> amountColumns;
-		}
-		while (amountColumns < 1);
-*/
+    return ts;
+}

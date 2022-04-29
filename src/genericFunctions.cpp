@@ -2,53 +2,50 @@
 #include <string>
 
 
-using std::cout;
-using std::cin;
-
-using std::string;
-
-
 
 
 void clearScreen()
 {
-	cout.flush();
-	cout << "\033[2J\033[1;1H";
+    std::cout.flush();
+    std::cout << "\033[2J\033[1;1H";
 
-	/**
-	 * flushes cout and outputs a string of special characters
-	 * that will translate to a clear screen command in the console.
-	 * should work on any OS.
-	 */
+    /**
+     * flushes stdout and outputs ANSI escape sequences to
+     * clear the screen, then position the cursor at row 1 column 1.
+     */
 }
 
 
 void printHeader()
 {
-	clearScreen();
+    clearScreen();
 
-	cout << " \n";
+    std::cout
+    << " \n"
+    << "";
 }
 
 
 bool queryRestart()
 {
-	string restartOperator;
+    char restartOperator;
 
-	cout << " \n"
-		 << " \n"
-		 << " \n restart? (0/1): ";
-	cin  >> restartOperator;
+    std::cout
+    << " \n"
+    << " \n"
+    << " \n restart? (0/1): ";
+    std::cin >> restartOperator;
+    std::cin.ignore();
 
-	if (    restartOperator == "1"
-	     || restartOperator == "y"    || restartOperator == "Y"
-	     || restartOperator == "t"    || restartOperator == "T"
-	     || restartOperator == "true" || restartOperator == "not false"
-	)  {
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+    if (
+        restartOperator == '1'
+     || restartOperator == 'Y' || restartOperator == 'y'
+     || restartOperator == 'T' || restartOperator == 't'
+    )  {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
